@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmViewer
+Partial Class FormViewer
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -31,9 +31,10 @@ Partial Class frmViewer
         ' 
         ' picView
         ' 
-        picView.Location = New Point(-2, -4)
+        picView.Location = New Point(-2, -3)
+        picView.Margin = New Padding(3, 2, 3, 2)
         picView.Name = "picView"
-        picView.Size = New Size(808, 453)
+        picView.Size = New Size(707, 340)
         picView.SizeMode = PictureBoxSizeMode.StretchImage
         picView.TabIndex = 0
         picView.TabStop = False
@@ -42,45 +43,48 @@ Partial Class frmViewer
         ' 
         lblCaption.Font = New Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblCaption.ForeColor = Color.White
-        lblCaption.Location = New Point(101, 452)
+        lblCaption.Location = New Point(88, 339)
         lblCaption.Name = "lblCaption"
-        lblCaption.Size = New Size(600, 41)
+        lblCaption.Size = New Size(525, 31)
         lblCaption.TabIndex = 1
         lblCaption.Text = "Caption"
         lblCaption.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnBack
         ' 
-        btnBack.Location = New Point(12, 455)
+        btnBack.Location = New Point(10, 341)
+        btnBack.Margin = New Padding(3, 2, 3, 2)
         btnBack.Name = "btnBack"
-        btnBack.Size = New Size(83, 31)
+        btnBack.Size = New Size(73, 23)
         btnBack.TabIndex = 2
         btnBack.Text = "Back"
         btnBack.UseVisualStyleBackColor = True
         ' 
         ' btnNext
         ' 
-        btnNext.Location = New Point(707, 455)
+        btnNext.Location = New Point(619, 341)
+        btnNext.Margin = New Padding(3, 2, 3, 2)
         btnNext.Name = "btnNext"
-        btnNext.Size = New Size(83, 31)
+        btnNext.Size = New Size(73, 23)
         btnNext.TabIndex = 3
         btnNext.Text = "Next"
         btnNext.UseVisualStyleBackColor = True
         ' 
-        ' Form1
+        ' FormViewer
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Black
-        ClientSize = New Size(802, 493)
+        ClientSize = New Size(702, 370)
         Controls.Add(btnNext)
         Controls.Add(btnBack)
         Controls.Add(lblCaption)
         Controls.Add(picView)
         FormBorderStyle = FormBorderStyle.Fixed3D
+        Margin = New Padding(3, 2, 3, 2)
         MaximizeBox = False
         MinimizeBox = False
-        Name = "Form1"
+        Name = "FormViewer"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Client"
         CType(picView, ComponentModel.ISupportInitialize).EndInit()

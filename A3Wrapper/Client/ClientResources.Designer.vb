@@ -75,6 +75,15 @@ Namespace My.ClientResources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to 26435.
+        '''</summary>
+        Friend Shared ReadOnly Property KeySeed() As String
+            Get
+                Return ResourceManager.GetString("KeySeed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Consolas;}}
         '''{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
         '''\pard\sl240\slmult1\b\f0\fs40\lang9 Creative Commons Legal Code\b0\fs22\par
