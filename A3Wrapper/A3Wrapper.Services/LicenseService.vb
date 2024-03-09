@@ -6,7 +6,10 @@ Imports A3Wrapper.Models
 
 Public Class LicenseService
     Private Const LICENSE_FILE As String = "./license.dat"
-
+    Private Const ERROR_INVALID_KEY As String = "Invalid key."
+    Private Const ERROR_WRITE_LICENSE_ERROR As String = "Unable to write license file."
+    Private Const ERROR_INSERT_DISC As String = "Please insert the program disc into the computer."
+    Private Const ERROR_READ_LICENSE_ERROR As String = "Cannot read license file."
     Dim discService As DiscService
     Dim keyService As KeyService
     Dim macService As MACService
@@ -33,39 +36,28 @@ Public Class LicenseService
     End Function
     Public Function VerifyKey(key As String) As (result As Boolean, message As String)
         Try
-            If keyService.VerifyKey(key) = False Then
-                Return (False, "Invalid key.")
-            End If
+            If keyService.VerifyKey(key) = False Then Return (False, ERROR_INVALID_KEY)
         Catch ex As Exception
-            Return (False, "Invalid key.")
+            Return (False, ERROR_INVALID_KEY)
         End Try
 
         Try
-            If (WriteLicenseFile() = False) Then
-                Return (False, "Unable to write license file.")
-            End If
+            If (WriteLicenseFile() = False) Then Return (False, ERROR_WRITE_LICENSE_ERROR)
         Catch ex As Exception
-            Return (False, "Unable to write license file.")
+            Return (False, ERROR_WRITE_LICENSE_ERROR)
         End Try
 
         Return (True, String.Empty)
     End Function
     Public Function DiscCheck() As (result As Boolean, message As String)
-        If (discService.HasDisk(name) = False) Then
-            Return (False, "Please insert program disc into the computer.")
-        End If
+        If (discService.HasDisk(name) = False) Then Return (False, ERROR_INSERT_DISC)
 
         Return (True, String.Empty)
     End Function
 
     Public Function ContinuousLicenseCheck() As (result As Boolean, message As String)
-        If (discService.HasDisk(name) = False) Then
-            Return (False, "Please insert program disc into the computer.")
-        End If
-
-        If (VerifyLicenseFile() = False) Then
-            Return (False, "Invalid license file.")
-        End If
+        If (discService.HasDisk(name) = False) Then Return (False, ERROR_INSERT_DISC)
+        If (VerifyLicenseFile() = False) Then Return (False, ERROR_READ_LICENSE_ERROR)
 
         Return (True, String.Empty)
     End Function

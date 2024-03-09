@@ -1,7 +1,21 @@
 ﻿Public Class FormViewer
     Public Property clientService As ClientService
 
-    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+    Public Sub GetPhotoForDisplay(incrementValue As Integer)
+        Dim photo = clientService.GetPhotoForDisplay(incrementValue)
+        picView.Image = photo.Item1
+        lblCaption.Text = photo.Item2
+    End Sub
 
+    Private Sub FormViewer_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        clientService.QuitProgram()
+    End Sub
+
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        GetPhotoForDisplay(1)
+    End Sub
+
+    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        GetPhotoForDisplay(-1)
     End Sub
 End Class

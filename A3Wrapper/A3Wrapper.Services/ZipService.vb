@@ -31,5 +31,26 @@ Public Class ZipService
         Return zipBytes
     End Function
 
+    Public Function GetFileFromArchive(filename As String, archive As Byte()) As Byte()
+        'Create memory stream to hold zip contents
+        Using memoryStream As New MemoryStream(archive)
+            'open the zip archive
+            Using zipArchive = New ZipArchive(memoryStream, ZipArchiveMode.Read, False)
+                'iterate through each file passed in through the list
+                For Each zipEntry In zipArchive.Entries
+                    If (String.Equals(zipEntry.Name, filename)) Then
+                        'create a memory stream to read the entry
+                        Using zipStream As DeflateStream = zipEntry.Open()
+                            Using decompressedStream As New MemoryStream()
+                                zipStream.CopyTo(decompressedStream)
+                                Return decompressedStream.ToArray()
+                            End Using
+                        End Using
+                    End If
+                Next
+            End Using
+        End Using
 
+        Throw New FileNotFoundException("Entry not found in ZIP file.", filename)
+    End Function
 End Class
