@@ -8,8 +8,12 @@ Public Class ClientService
     Dim licenseService As LicenseService
 
     Sub New(programName As String, keySeed As String, keyForm As FormKey, licenseForm As FormLicense, viewerForm As FormViewer)
+        'generate license service
         licenseService = New LicenseService(programName, keySeed)
+        'output a license key to the console
+        Debug.Print(licenseService.GenerateKey("ABCD"))
 
+        'create forms
         frmKey = keyForm
         frmLicense = licenseForm
         frmViewer = viewerForm
@@ -35,7 +39,19 @@ Public Class ClientService
             ShowViewerScreen()
         End If
     End Sub
+    Public Sub VerifyKey(key As String)
+        Dim keyCheck As (Boolean, String)
+        keyCheck = licenseService.VerifyKey(key)
 
+        If (keyCheck.Item1 = False) Then
+            If (MsgBox(keyCheck.Item2, MsgBoxStyle.Critical, "Error") = MsgBoxResult.Cancel) Then
+                QuitProgram()
+            End If
+        Else
+            MsgBox("The program will now start.", MsgBoxStyle.Information, "Information")
+            ShowViewerScreen()
+        End If
+    End Sub
     Public Sub ShowLicenseScreen()
         frmKey.Hide()
         frmViewer.Hide()

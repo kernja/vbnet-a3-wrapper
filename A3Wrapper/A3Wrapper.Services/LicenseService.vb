@@ -28,6 +28,9 @@ Public Class LicenseService
         encryptionService = New EncryptionService()
         keyService = New KeyService(seed)
     End Sub
+    Public Function GenerateKey(seed As String) As String
+        Return keyService.GenerateKey(seed)
+    End Function
     Public Function VerifyKey(key As String) As (result As Boolean, message As String)
         Try
             If keyService.VerifyKey(key) = False Then
@@ -90,7 +93,8 @@ Public Class LicenseService
         Try
             File.Delete(LICENSE_FILE)
             Dim license = New LicenseModel() With {.NetworkAdapters = macService.GetAddresses(), .ProductName = name}
-            Dim encryptedBytes = encryptionService.EncryptFile(JsonSerializer.SerializeToUtf8Bytes(Of LicenseModel)(license))
+            Dim rawBytes = JsonSerializer.SerializeToUtf8Bytes(Of LicenseModel)(license)
+            Dim encryptedBytes = encryptionService.EncryptFile(rawBytes)
             File.WriteAllBytes(LICENSE_FILE, encryptedBytes)
 
             Return True

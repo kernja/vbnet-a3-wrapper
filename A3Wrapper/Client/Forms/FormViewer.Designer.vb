@@ -52,23 +52,25 @@ Partial Class FormViewer
         ' 
         ' btnBack
         ' 
+        btnBack.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
         btnBack.Location = New Point(10, 341)
         btnBack.Margin = New Padding(3, 2, 3, 2)
         btnBack.Name = "btnBack"
         btnBack.Size = New Size(73, 23)
         btnBack.TabIndex = 2
         btnBack.Text = "Back"
-        btnBack.UseVisualStyleBackColor = True
+        btnBack.UseVisualStyleBackColor = False
         ' 
         ' btnNext
         ' 
+        btnNext.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
         btnNext.Location = New Point(619, 341)
         btnNext.Margin = New Padding(3, 2, 3, 2)
         btnNext.Name = "btnNext"
         btnNext.Size = New Size(73, 23)
         btnNext.TabIndex = 3
         btnNext.Text = "Next"
-        btnNext.UseVisualStyleBackColor = True
+        btnNext.UseVisualStyleBackColor = False
         ' 
         ' FormViewer
         ' 

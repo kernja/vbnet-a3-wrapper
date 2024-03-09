@@ -71,16 +71,16 @@
         If Not (passedString.Length = KEYLENGTH) Then Throw New ArgumentException(NameOf(passedString))
         If Not (passedString.All(Function(x) Char.IsLetter(x) And Char.IsUpper(x))) Then Throw New ArgumentException(NameOf(passedString))
 
-        Dim myKeys As String = ""
+        Dim mySeed As String = ""
         Dim i As Integer
 
         'grab the four original seeds
-        For i = KEYSEEDCOUNT To 0 Step -1
-            myKeys = (passedString.Chars(i * KEYSEEDINTERVAL) & myKeys)
+        For i = KEYSEEDCOUNT - 1 To 0 Step -1
+            mySeed = (passedString.Chars(i * KEYSEEDINTERVAL) & mySeed)
         Next i
 
         'test
-        Return GenerateKey(myKeys).Equals(passedString, StringComparison.InvariantCultureIgnoreCase)
+        Return GenerateKey(mySeed).Equals(passedString, StringComparison.InvariantCultureIgnoreCase)
     End Function
 
     Public Function GetHashValue(ByVal passedString As String) As Integer
