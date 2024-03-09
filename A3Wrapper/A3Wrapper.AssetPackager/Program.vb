@@ -34,7 +34,7 @@ Module Program
         Dim zipBytes = zipService.CreateZipArchive(zipEntries)
         File.WriteAllBytes("./encryptedPhotos.zip", zipBytes)
 
-
+        'output message
         Console.WriteLine("Written encrypted files to disk in a zip archive.")
     End Sub
 

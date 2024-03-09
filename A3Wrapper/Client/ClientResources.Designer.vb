@@ -65,6 +65,16 @@ Namespace My.ClientResources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Byte[].
+        '''</summary>
+        Friend Shared ReadOnly Property encryptedPhotos() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("encryptedPhotos", resourceCulture)
+                Return CType(obj,Byte())
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Consolas;}}
         '''{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
         '''\pard\sl240\slmult1\b\f0\fs40\lang9 Creative Commons Legal Code\b0\fs22\par
@@ -79,6 +89,15 @@ Namespace My.ClientResources
         Friend Shared ReadOnly Property License() As String
             Get
                 Return ResourceManager.GetString("License", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to WRAPR.
+        '''</summary>
+        Friend Shared ReadOnly Property ProductName() As String
+            Get
+                Return ResourceManager.GetString("ProductName", resourceCulture)
             End Get
         End Property
     End Class

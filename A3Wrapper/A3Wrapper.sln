@@ -7,11 +7,13 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "A3Wrapper.Client", "Client\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{91E354C3-181D-45A5-99DD-5E2DE370CA87}"
 	ProjectSection(SolutionItems) = preProject
+		Assets\encryptedPhotos.zip = Assets\encryptedPhotos.zip
 		Assets\License.rtf = Assets\License.rtf
 		Assets\photo1.jpg = Assets\photo1.jpg
 		Assets\photo2.jpg = Assets\photo2.jpg
 		Assets\photo3.jpg = Assets\photo3.jpg
 		Assets\photo4.jpg = Assets\photo4.jpg
+		Assets\WRAPR.iso = Assets\WRAPR.iso
 	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "A3Wrapper.Models", "A3Wrapper.Models\A3Wrapper.Models.vbproj", "{6862AD66-1DF8-4E70-9298-C24658ACC72B}"
