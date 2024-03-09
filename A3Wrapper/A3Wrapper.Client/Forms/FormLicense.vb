@@ -5,9 +5,7 @@ Public Class FormLicense
     Public Property clientService As ClientService
 
     Private Sub frmLicense_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Load license text file, embedded in application as unencrypted RTF
         rtbLicense.SelectedRtf = ClientResources.License
-
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

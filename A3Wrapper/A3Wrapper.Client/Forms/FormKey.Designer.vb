@@ -32,7 +32,7 @@ Partial Class FormKey
         ' 
         ' btnNext
         ' 
-        btnNext.Location = New Point(211, 117)
+        btnNext.Location = New Point(203, 117)
         btnNext.Margin = New Padding(3, 2, 3, 2)
         btnNext.Name = "btnNext"
         btnNext.Size = New Size(73, 23)
@@ -89,9 +89,9 @@ Partial Class FormKey
         ' 
         ' FormKey
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(296, 151)
+        ClientSize = New Size(284, 151)
         ControlBox = False
         Controls.Add(txtKey)
         Controls.Add(lblInstructionsC)

@@ -1,5 +1,6 @@
 Imports System
 Imports System.IO
+Imports System.Reflection
 Imports System.Resources
 Imports System.Text
 Imports System.Text.Json
@@ -15,23 +16,22 @@ Module Program
 
         'generate metadata
         Dim photoMetadata As PhotoListModel = GenerateAssetMetadata()
+
+        'serialize metadata into bytes
         Dim photoMetadataBytes As Byte() = JsonSerializer.SerializeToUtf8Bytes(Of PhotoListModel)(photoMetadata)
 
-        'encrypt photo metadata
-        Dim encMetadata As Byte() = encService.EncryptFile(photoMetadataBytes)
-
-        'create zip file entries
-        'contents
+        'create zip file entries, consisting of filename and encrypted byte data
+        'contents.xml
         Dim zipEntries As IList(Of ZipEntryModel) = New List(Of ZipEntryModel)
         zipEntries.Add(New ZipEntryModel() With {.Filename = "contents.txt", .Contents = encService.EncryptFile(photoMetadataBytes)})
-        'photos
+        'photo entries
         For Each photo In photoMetadata.Photos
             zipEntries.Add(
                 New ZipEntryModel() With {.Filename = photo.Filename,
                                           .Contents = encService.EncryptFile(UnencryptedAssets.ResourceManager.GetObject(Path.GetFileNameWithoutExtension(photo.Filename)))})
         Next
 
-        'write zip
+        'create and write zip file
         Dim zipBytes = zipService.CreateZipArchive(zipEntries)
         File.WriteAllBytes("./encryptedPhotos.zip", zipBytes)
 
@@ -41,13 +41,12 @@ Module Program
 
     Function GenerateAssetMetadata() As PhotoListModel
 
-        Dim pList As New PhotoListModel
-        pList.Photos.Add(New PhotoCaptionModel() With {.Filename = "photo1.jpg", .Caption = "Maya the Corgi"})
-        pList.Photos.Add(New PhotoCaptionModel() With {.Filename = "photo2.jpg", .Caption = "Giant waffle"})
-        pList.Photos.Add(New PhotoCaptionModel() With {.Filename = "photo3.jpg", .Caption = "What student loan debt feels like"})
-        pList.Photos.Add(New PhotoCaptionModel() With {.Filename = "photo4.jpg", .Caption = "Balloons!"})
+        Dim model As New PhotoListModel
+        model.Photos.Add(New PhotoCaptionModel() With {.Filename = "photo1.jpg", .Caption = "Maya the Corgi"})
+        model.Photos.Add(New PhotoCaptionModel() With {.Filename = "photo2.jpg", .Caption = "Giant waffle"})
+        model.Photos.Add(New PhotoCaptionModel() With {.Filename = "photo3.jpg", .Caption = "What student loan debt feels like"})
+        model.Photos.Add(New PhotoCaptionModel() With {.Filename = "photo4.jpg", .Caption = "Balloons!"})
 
-        Return pList
-        'Return JsonSerializer.SerializeToUtf8Bytes(Of PhotoListModel)(pList)
+        Return model
     End Function
 End Module

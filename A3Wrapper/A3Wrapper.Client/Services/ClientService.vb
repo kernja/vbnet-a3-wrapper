@@ -26,14 +26,15 @@ Public Class ClientService
     End Sub
     Public Sub LaunchProgram()
         Dim discCheck As (Boolean, String)
-
+        discCheck = licenseService.DiscCheck()
         'do disc check
         'make sure that the disc is in the drive before doing anything else
         While (discCheck.Item1 = False)
-            discCheck = licenseService.DiscCheck()
             If (MsgBox(discCheck.Item2, MsgBoxStyle.Critical + MsgBoxStyle.OkCancel, "Error") = MsgBoxResult.Cancel) Then
                 QuitProgram()
             End If
+            'reperform test
+            discCheck = licenseService.DiscCheck()
         End While
 
         'do license check
@@ -68,11 +69,14 @@ Public Class ClientService
         Dim continuousCheck As (Boolean, String)
 
         'force a continuous (license and disc) check
+        continuousCheck = licenseService.ContinuousLicenseCheck()
+
         While (continuousCheck.Item1 = False)
-            continuousCheck = licenseService.ContinuousLicenseCheck()
             If (MsgBox(continuousCheck.Item2, MsgBoxStyle.Critical + MsgBoxStyle.OkCancel, "Error") = MsgBoxResult.Cancel) Then
                 QuitProgram()
             End If
+            'reperform check
+            continuousCheck = licenseService.ContinuousLicenseCheck()
         End While
 
         'check passed, load the image
