@@ -22,20 +22,21 @@ Public Class EncryptionService
 
     End Sub
     Public Function EncryptFile(rawAsset As Byte()) As Byte()
-        Return PerformEncryptionAction(rawAsset, True)
-    End Function
-    Public Function DecryptFile(rawAsset As Byte()) As Byte()
-        Return PerformEncryptionAction(rawAsset, False)
-    End Function
-
-    Private Function PerformEncryptionAction(rawAsset As Byte(), isEncrypting As Boolean)
         'Create the encrypter
         Dim encryptor As ICryptoTransform
-        encryptor = If(isEncrypting, _desProvider.CreateEncryptor(), _desProvider.CreateDecryptor())
+        encryptor = _desProvider.CreateEncryptor()
 
         'Perform the encrpytion
         'Use memory and crypto streams for large data blocks
         Return encryptor.TransformFinalBlock(rawAsset, 0, rawAsset.Length)
-
     End Function
+    Public Function DecryptFile(rawAsset As Byte()) As Byte()
+        Dim decryptor As ICryptoTransform
+        decryptor = _desProvider.CreateDecryptor()
+
+        'Perform the encrpytion
+        'Use memory and crypto streams for large data blocks
+        Return decryptor.TransformFinalBlock(rawAsset, 0, rawAsset.Length)
+    End Function
+
 End Class

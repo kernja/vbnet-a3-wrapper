@@ -22,6 +22,7 @@
         Next
 
         'create letter values, based off the power of 2
+        'we use this for generating seed values to base RNG off of
         Dim values As IList(Of Integer) = New List(Of Integer)
         For i = 0 To 25
             values.Add(Math.Pow(2, i))
@@ -86,6 +87,8 @@
     Public Function GetHashValue(ByVal passedString As String) As Integer
         Dim myReturn As Integer
 
+        'loop through each letter in the passed string
+        'and add the associated value in the letterValue lookup
         For i = 0 To passedString.Length - 1
             Dim tempChar As String = passedString.Chars(i)
             myReturn = myReturn + letterValues(tempChar)
@@ -98,12 +101,13 @@
     Private Function Shuffle(Of T)(list As IList(Of T)) As IList(Of T)
         'Fisher-Yates Shuffle Algorithm from https://stackoverflow.com/a/1262619
         Dim random As New Random(seed)
-        Dim i As Integer = list.Count
+        Dim i As Integer = list.Count, j As Integer = 0
+        Dim value As T
 
         While i > 1
             i = i - 1
-            Dim j As Integer = random.Next(i + 1)
-            Dim value As T = list(j)
+            j = random.Next(i + 1)
+            value = list(j)
             list(j) = list(i)
             list(i) = value
         End While

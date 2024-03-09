@@ -6,7 +6,7 @@ Public Class PhotoListModel
     Public Property Photos As IList(Of PhotoCaptionModel) = New List(Of PhotoCaptionModel)
 
     <JsonIgnore>
-    Public Property Index As Integer
+    Public Property Index As Integer = 0
 
     Public Function IncrementIndexAndGetPhoto(incrementValue As Integer) As PhotoCaptionModel
         Index = Index + incrementValue

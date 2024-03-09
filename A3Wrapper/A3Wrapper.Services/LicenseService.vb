@@ -50,13 +50,13 @@ Public Class LicenseService
         Return (True, String.Empty)
     End Function
     Public Function DiscCheck() As (result As Boolean, message As String)
-        If (discService.HasDisk(name) = False) Then Return (False, ERROR_INSERT_DISC)
+        If (discService.HasDiscInDrive(name) = False) Then Return (False, ERROR_INSERT_DISC)
 
         Return (True, String.Empty)
     End Function
 
     Public Function ContinuousLicenseCheck() As (result As Boolean, message As String)
-        If (discService.HasDisk(name) = False) Then Return (False, ERROR_INSERT_DISC)
+        If (discService.HasDiscInDrive(name) = False) Then Return (False, ERROR_INSERT_DISC)
         If (VerifyLicenseFile() = False) Then Return (False, ERROR_READ_LICENSE_ERROR)
 
         Return (True, String.Empty)

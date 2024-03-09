@@ -3,10 +3,9 @@ Imports System.IO.Compression
 Imports A3Wrapper.Models
 
 Public Class ZipService
+    Private Const ERROR_FILENOTFOUND As String = "Entry not found in ZIP file."
+
     Public Function CreateZipArchive(files As IList(Of ZipEntryModel)) As Byte()
-
-        Dim zipBytes As Byte()
-
         'Create memory stream to hold zip contents
         Using memoryStream As New MemoryStream
             'create the zip archive
@@ -15,20 +14,15 @@ Public Class ZipService
                 For Each fileEntry As ZipEntryModel In files
                     'create a zip entry for each file
                     Dim zipEntry = zipArchive.CreateEntry(fileEntry.Filename)
-
                     'write bytes
                     Using streamWriter As New StreamWriter(zipEntry.Open)
                         streamWriter.BaseStream.Write(fileEntry.Contents, 0, fileEntry.Contents.Length)
                     End Using
-
                 Next
-
-
             End Using
-            zipBytes = memoryStream.ToArray()
-        End Using
 
-        Return zipBytes
+            Return memoryStream.ToArray()
+        End Using
     End Function
 
     Public Function GetFileFromArchive(filename As String, archive As Byte()) As Byte()
@@ -39,11 +33,13 @@ Public Class ZipService
                 'iterate through each file passed in through the list
                 For Each zipEntry In zipArchive.Entries
                     If (String.Equals(zipEntry.Name, filename)) Then
-                        'create a memory stream to read the entry
-                        Using zipStream As DeflateStream = zipEntry.Open()
-                            Using decompressedStream As New MemoryStream()
-                                zipStream.CopyTo(decompressedStream)
-                                Return decompressedStream.ToArray()
+                        'create a deflatestream to deflate the entry
+                        Using zipEntryStream As DeflateStream = zipEntry.Open()
+                            'create a memory stream to store deflated contents
+                            Using zipEntryMemoryStream As New MemoryStream()
+                                'copy contents over and return
+                                zipEntryStream.CopyTo(zipEntryMemoryStream)
+                                Return zipEntryMemoryStream.ToArray()
                             End Using
                         End Using
                     End If
@@ -51,6 +47,6 @@ Public Class ZipService
             End Using
         End Using
 
-        Throw New FileNotFoundException("Entry not found in ZIP file.", filename)
+        Throw New FileNotFoundException(ERROR_FILENOTFOUND, filename)
     End Function
 End Class

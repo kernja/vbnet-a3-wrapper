@@ -26,22 +26,27 @@ Public Class ClientService
     End Sub
     Public Sub LaunchProgram()
         Dim discCheck As (Boolean, String)
-        discCheck = licenseService.DiscCheck()
 
         'do disc check
+        'make sure that the disc is in the drive before doing anything else
         While (discCheck.Item1 = False)
+            discCheck = licenseService.DiscCheck()
             If (MsgBox(discCheck.Item2, MsgBoxStyle.Critical + MsgBoxStyle.OkCancel, "Error") = MsgBoxResult.Cancel) Then
                 QuitProgram()
             End If
         End While
 
         'do license check
+        'if no license is found, or if it is invalid, show the license promot
         If (licenseService.VerifyLicenseFile() = False) Then
             ShowLicenseScreen()
         Else
+            'license is valid, show the viewer screen
             ShowViewerScreen()
         End If
     End Sub
+
+    'This sub is called by frmKey.btnNext, with the value passed in from the form's text box
     Public Sub VerifyKey(key As String)
         Dim keyCheck As (Boolean, String)
         keyCheck = licenseService.VerifyKey(key)
@@ -51,10 +56,29 @@ Public Class ClientService
                 QuitProgram()
             End If
         Else
+            'the key is valid, start the program
             MsgBox("The program will now start.", MsgBoxStyle.Information, "Information")
             ShowViewerScreen()
         End If
     End Sub
+
+    'this sub is called by frmViewer on inital photo load and when the user changes images
+
+    Public Function GetPhotoForDisplay(incrementValue As Integer) As (Image, String)
+        Dim continuousCheck As (Boolean, String)
+
+        'force a continuous (license and disc) check
+        While (continuousCheck.Item1 = False)
+            continuousCheck = licenseService.ContinuousLicenseCheck()
+            If (MsgBox(continuousCheck.Item2, MsgBoxStyle.Critical + MsgBoxStyle.OkCancel, "Error") = MsgBoxResult.Cancel) Then
+                QuitProgram()
+            End If
+        End While
+
+        'check passed, load the image
+        Return photoService.GetPhotoForDisplay(incrementValue)
+    End Function
+
     Public Sub ShowLicenseScreen()
         frmKey.Hide()
         frmViewer.Hide()
@@ -78,18 +102,4 @@ Public Class ClientService
         frmViewer.Hide()
         End
     End Sub
-    Public Function GetPhotoForDisplay(incrementValue As Integer) As (Image, String)
-        Dim continuousCheck As (Boolean, String)
-        continuousCheck = licenseService.ContinuousLicenseCheck()
-
-        While (continuousCheck.Item1 = False)
-            If (MsgBox(continuousCheck.Item2, MsgBoxStyle.Critical + MsgBoxStyle.OkCancel, "Error") = MsgBoxResult.Cancel) Then
-                QuitProgram()
-            End If
-
-            continuousCheck = licenseService.ContinuousLicenseCheck()
-        End While
-
-        Return photoService.GetPhotoForDisplay(incrementValue)
-    End Function
 End Class
