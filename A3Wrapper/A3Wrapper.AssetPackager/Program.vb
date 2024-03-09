@@ -1,26 +1,41 @@
 Imports System
 Imports System.IO
+Imports System.Resources
 Imports System.Text.Json
+Imports A3Wrapper.AssetPackager.My.Resources
 Imports A3Wrapper.Models
 Imports A3Wrapper.Services
 
 Module Program
     Sub Main(args As String())
+        'create services
+        Dim encService As New EncryptionService()
+        Dim zipService As New ZipService()
+
         'generate metadata
         Dim photoMetadata As PhotoListModel = GenerateAssetMetadata()
         Dim photoMetadataBytes As Byte() = JsonSerializer.SerializeToUtf8Bytes(Of PhotoListModel)(photoMetadata)
 
-        'create encryption service
-        Dim encService As New EncryptionService()
-
-        'encrypt photo metadata and save
-
+        'encrypt photo metadata
         Dim encMetadata As Byte() = encService.EncryptFile(photoMetadataBytes)
-        File.WriteAllBytes("./rawMetadata.txt", photoMetadataBytes)
-        File.WriteAllBytes("./encryptedMetadata.txt", encMetadata)
-        File.WriteAllBytes("./decryptedMetadata.txt", encService.DecryptFile(encMetadata))
 
-        Console.WriteLine("Hello World!")
+        'create zip file entries
+        'contents
+        Dim zipEntries As IList(Of ZipEntryModel) = New List(Of ZipEntryModel)
+        zipEntries.Add(New ZipEntryModel() With {.Filename = "contents.txt", .Contents = encService.EncryptFile(photoMetadataBytes)})
+        'photos
+        For Each photo In photoMetadata.Photos
+            zipEntries.Add(
+                New ZipEntryModel() With {.Filename = photo.Filename,
+                                          .Contents = encService.EncryptFile(UnencryptedAssets.ResourceManager.GetObject(Path.GetFileNameWithoutExtension(photo.Filename)))})
+        Next
+
+        'write zip
+        Dim zipBytes = zipService.CreateZipArchive(zipEntries)
+        File.WriteAllBytes("./encryptedPhotos.zip", zipBytes)
+
+
+        Console.WriteLine("Written encrypted files to disk in a zip archive.")
     End Sub
 
     Function GenerateAssetMetadata() As PhotoListModel

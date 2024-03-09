@@ -5,4 +5,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\A3Wrapper.Models\A3Wrapper.Models.vbproj" />
+  </ItemGroup>
+
 </Project>
