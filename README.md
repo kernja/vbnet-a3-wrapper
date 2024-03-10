@@ -1,6 +1,6 @@
 # A3 Wrapper
 
-This project is a *modern remake* of the wrapper technology used within a series of educational, interactive movies produced by Asian American Animation, Ltd from approximately 2008 - 2011. It was written in Visual Studio 2022 with .Net 8 and .Net Standard 2.0, whereas the original solution was developed in Visual Studio 2005 with .Net 2.0.
+This project is a *modern remake* of the wrapper technology used within a series of educational, interactive movies produced by Asian American Animation, Ltd from approximately 2008 - 2011. It was written in Visual Studio 2022 with .Net 8 and .Net Standard 2.0, whereas the original solution was initially developed in Visual Studio 2005 with .Net 2.0.
 
 The program was started [by an autoplay launcher](https://github.com/kernja/vb6-a3-launcher/) and  designed to play embedded Adobe Flash files while protecting them from theft. It incorporated several security features including:
 
