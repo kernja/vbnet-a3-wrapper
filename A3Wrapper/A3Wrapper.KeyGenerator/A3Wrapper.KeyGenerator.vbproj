@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>A3Wrapper.KeyGenerator</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\A3Wrapper.Services\A3Wrapper.Services.vbproj" />
+    <ProjectReference Include="..\A3Wrapper.SharedResources\A3Wrapper.SharedResources.vbproj" />
+  </ItemGroup>
+
+</Project>
