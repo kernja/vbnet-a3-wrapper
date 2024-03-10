@@ -117,11 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="encryptedPhotos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\encryptedPhotos.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="EncryptionPassword" xml:space="preserve">
+    <value>BCWBQBXNKENXIPZMZZFJMVWVWOKBMUOAHCGHFHJPRLBIPMPRKXJCXSVUBEICKMYBFFZSSHUMEUZNDZFORFSPTNKQHEMINXWIUDKGJBOBJNGKEINGGGJBPYHTBWIJPLOGVHXISVBNSPFEHSBSPUHHSVXJJYCIJUFUMBSZZXDFAVWDYJGSZYYCIMWUSXNSSYUPXTEUKWNHWHJRVLVUBDTJVOWXUHTANTKOZSYTVDTKLOEDYATLMFVRFWDTNETDGEMH</value>
+    <comment>256 character string of capitalized letters A-Z</comment>
   </data>
-  <data name="License" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\License.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="EncryptionSalt" xml:space="preserve">
+    <value>1, 5, 24, 51, 128, 231, 4, 0</value>
+    <comment>8 comma-separated byte (0-255) values</comment>
+  </data>
+  <data name="KeyLength" xml:space="preserve">
+    <value>25</value>
+    <comment>Total length of a generated key string. Value must be greater than or equal to KeySeedInterval * KeySeedCount</comment>
+  </data>
+  <data name="KeySeed" xml:space="preserve">
+    <value>26435</value>
+    <comment>Seed used to kick off product key generation</comment>
+  </data>
+  <data name="KeySeedCount" xml:space="preserve">
+    <value>5</value>
+    <comment>How many seeds to put into a generated key string</comment>
+  </data>
+  <data name="KeySeedInterval" xml:space="preserve">
+    <value>5</value>
+    <comment>The spacing between each seed in a generated key string</comment>
+  </data>
+  <data name="LicenseFile" xml:space="preserve">
+    <value>./license.dat</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>WRAPR</value>
+  </data>
+  <data name="ZipContentsFile" xml:space="preserve">
+    <value>./encryptedPhotos.zip</value>
+    <comment>Default name to write photos</comment>
+  </data>
+  <data name="ZipManifestFile" xml:space="preserve">
+    <value>contents.txt</value>
+    <comment>Serialized PhotoListModel in the zip file</comment>
   </data>
 </root>

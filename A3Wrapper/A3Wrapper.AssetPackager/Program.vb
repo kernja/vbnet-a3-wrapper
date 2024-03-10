@@ -1,12 +1,9 @@
-Imports System
 Imports System.IO
-Imports System.Reflection
-Imports System.Resources
-Imports System.Text
 Imports System.Text.Json
 Imports A3Wrapper.AssetPackager.My.Resources
 Imports A3Wrapper.Models
 Imports A3Wrapper.Services
+Imports A3Wrapper.SharedResources.My.Resources
 
 Module Program
     Sub Main(args As String())
@@ -23,7 +20,7 @@ Module Program
         'create zip file entries, consisting of filename and encrypted byte data
         'contents.xml
         Dim zipEntries As IList(Of ZipEntryModel) = New List(Of ZipEntryModel)
-        zipEntries.Add(New ZipEntryModel() With {.Filename = "contents.txt", .Contents = encService.EncryptFile(photoMetadataBytes)})
+        zipEntries.Add(New ZipEntryModel() With {.Filename = A3Resources.ZipManifestFile, .Contents = encService.EncryptFile(photoMetadataBytes)})
         'photo entries
         For Each photo In photoMetadata.Photos
             zipEntries.Add(
@@ -33,10 +30,10 @@ Module Program
 
         'create and write zip file
         Dim zipBytes = zipService.CreateZipArchive(zipEntries)
-        File.WriteAllBytes("./encryptedPhotos.zip", zipBytes)
+        File.WriteAllBytes(A3Resources.ZipContentsFile, zipBytes)
 
         'output message
-        Console.WriteLine("Written encrypted files to disk in a zip archive.")
+        Console.WriteLine(A3Strings.INFO_WRITTEN_ENCRYPTED_FILES_TO_DISK)
     End Sub
 
     Function GenerateAssetMetadata() As PhotoListModel

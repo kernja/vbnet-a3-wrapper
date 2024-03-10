@@ -3,9 +3,9 @@ Imports System.Text.Json
 Imports A3Wrapper.Client.My.ClientResources
 Imports A3Wrapper.Models
 Imports A3Wrapper.Services
+Imports A3Wrapper.SharedResources.My.Resources
 
 Public Class PhotoService
-    Private Const ARCHIVE_MANIFEST As String = "contents.txt"
     Private encryptionService As EncryptionService
     Private zipService As ZipService
     Dim photoList As PhotoListModel
@@ -13,13 +13,13 @@ Public Class PhotoService
     Public Sub New()
         encryptionService = New EncryptionService()
         zipService = New ZipService()
-        photoList = JsonSerializer.Deserialize(Of PhotoListModel)(encryptionService.DecryptFile(zipService.GetFileFromArchive(ARCHIVE_MANIFEST, ClientResources.encryptedPhotos)))
+        photoList = JsonSerializer.Deserialize(Of PhotoListModel)(encryptionService.DecryptFile(zipService.GetFileFromArchive(A3Resources.ZipManifestFile, ClientResources.encryptedPhotos)))
     End Sub
 
-    Public Function GetPhotoForDisplay(incrementValue As Integer) As (Image, String)
+    Public Function GetPhotoForDisplay(incrementValue As Integer) As PhotoDisplayModel
         Dim photo = photoList.IncrementIndexAndGetPhoto(incrementValue)
         Using memoryStream = New MemoryStream(encryptionService.DecryptFile(zipService.GetFileFromArchive(photo.Filename, ClientResources.encryptedPhotos)))
-            Return (Image.FromStream(memoryStream), photo.Caption)
+            Return New PhotoDisplayModel() With {.Photo = Image.FromStream(memoryStream), .Caption = photo.Caption}
         End Using
 
     End Function

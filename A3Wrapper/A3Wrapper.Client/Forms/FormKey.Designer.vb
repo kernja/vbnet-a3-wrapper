@@ -64,9 +64,9 @@ Partial Class FormKey
         lblInstructionsA.AutoSize = True
         lblInstructionsA.Location = New Point(10, 19)
         lblInstructionsA.Name = "lblInstructionsA"
-        lblInstructionsA.Size = New Size(220, 15)
+        lblInstructionsA.Size = New Size(178, 15)
         lblInstructionsA.TabIndex = 5
-        lblInstructionsA.Text = "Please enter your twenty-digit (20) code."
+        lblInstructionsA.Text = "Please enter your program code."
         ' 
         ' lblInstructionsC
         ' 

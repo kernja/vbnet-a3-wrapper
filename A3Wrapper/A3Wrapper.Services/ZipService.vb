@@ -1,9 +1,9 @@
 ﻿Imports System.IO
 Imports System.IO.Compression
 Imports A3Wrapper.Models
+Imports A3Wrapper.SharedResources.My.Resources
 
 Public Class ZipService
-    Private Const ERROR_FILENOTFOUND As String = "Entry not found in ZIP file."
 
     Public Function CreateZipArchive(files As IList(Of ZipEntryModel)) As Byte()
         'Create memory stream to hold zip contents
@@ -47,6 +47,6 @@ Public Class ZipService
             End Using
         End Using
 
-        Throw New FileNotFoundException(ERROR_FILENOTFOUND, filename)
+        Throw New FileNotFoundException(A3Strings.ERROR_ZIP_ENTRY_NOT_FOUND, filename)
     End Function
 End Class

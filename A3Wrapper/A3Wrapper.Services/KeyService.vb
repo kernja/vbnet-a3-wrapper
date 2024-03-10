@@ -1,15 +1,23 @@
-﻿Public Class KeyService
+﻿Imports A3Wrapper.SharedResources.My.Resources
+
+Public Class KeyService
     Private Const ASCII_CHAR_OFFSET As Integer = 65
-    Private Const KEYLENGTH As Integer = 20 'total length of key 
-    Private Const KEYSEEDINTERVAL As Integer = 5 'when to put a seed into the key
-    Private Const KEYSEEDCOUNT As Integer = 4 'how many seeds to insert
 
     Dim letterValues As IDictionary(Of String, Integer)
     Dim seed As Integer
-
+    Dim keyLength As Integer
+    Dim keySeedCount As Integer
+    Dim keySeedInterval As Integer
     Public Sub New(initSeed As Integer)
         'set our seed value
         seed = initSeed
+        'get values from resource file
+        keySeedCount = Integer.Parse(A3Resources.KeySeedCount)
+        keyLength = Integer.Parse(A3Resources.KeyLength)
+        keySeedInterval = Integer.Parse(A3Resources.KeySeedInterval)
+
+        'parameter checks
+        If (keySeedCount = 0 Or keyLength = 0 Or keySeedInterval = 0 Or (keySeedCount * keySeedInterval > keyLength)) Then Throw New Exception(A3Strings.ERROR_INVALID_KEY_CONFIGURATON)
 
         'set iterator variable
         Dim i As Integer
@@ -43,7 +51,7 @@
     Public Function GenerateKey(ByVal passedString As String) As String
         'Parameter checks
         If (String.IsNullOrEmpty(passedString)) Then Throw New ArgumentException(NameOf(passedString))
-        If Not (passedString.Length = 4) Then Throw New ArgumentException(NameOf(passedString))
+        If Not (passedString.Length = keySeedCount) Then Throw New ArgumentException(NameOf(passedString))
         If Not (passedString.All(Function(x) Char.IsLetter(x) And Char.IsUpper(x))) Then Throw New ArgumentException(NameOf(passedString))
 
         'Declare variables
@@ -54,13 +62,13 @@
         Dim r As New Random(GetHashValue(passedString))
 
         'Generate a key based off the seed value
-        For i = 0 To KEYLENGTH - KEYSEEDCOUNT - 1
+        For i = 0 To keyLength - keySeedCount - 1
             newKey = newKey & Convert.ToChar(r.Next(0 + ASCII_CHAR_OFFSET, 25 + ASCII_CHAR_OFFSET)).ToString()
         Next
 
         'insert characters into string at specific locations
-        For i = 0 To KEYSEEDCOUNT - 1
-            newKey = newKey.Insert(i * KEYSEEDINTERVAL, passedString.Chars(i))
+        For i = 0 To keySeedCount - 1
+            newKey = newKey.Insert(i * keySeedInterval, passedString.Chars(i))
         Next
 
         'return new key
@@ -69,15 +77,15 @@
     Public Function VerifyKey(ByVal passedString As String) As Boolean
         'parameter checks
         If (String.IsNullOrEmpty(passedString)) Then Throw New ArgumentException(NameOf(passedString))
-        If Not (passedString.Length = KEYLENGTH) Then Throw New ArgumentException(NameOf(passedString))
+        If Not (passedString.Length = keyLength) Then Throw New ArgumentException(NameOf(passedString))
         If Not (passedString.All(Function(x) Char.IsLetter(x) And Char.IsUpper(x))) Then Throw New ArgumentException(NameOf(passedString))
 
         Dim mySeed As String = ""
         Dim i As Integer
 
         'grab the four original seeds
-        For i = KEYSEEDCOUNT - 1 To 0 Step -1
-            mySeed = (passedString.Chars(i * KEYSEEDINTERVAL) & mySeed)
+        For i = keySeedCount - 1 To 0 Step -1
+            mySeed = (passedString.Chars(i * keySeedInterval) & mySeed)
         Next i
 
         'test

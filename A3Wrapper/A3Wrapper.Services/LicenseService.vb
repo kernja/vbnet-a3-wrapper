@@ -1,15 +1,10 @@
 ﻿Imports System.IO
-Imports System.Net.Http
 Imports System.Text
 Imports System.Text.Json
 Imports A3Wrapper.Models
+Imports A3Wrapper.SharedResources.My.Resources
 
 Public Class LicenseService
-    Private Const LICENSE_FILE As String = "./license.dat"
-    Private Const ERROR_INVALID_KEY As String = "Invalid key."
-    Private Const ERROR_WRITE_LICENSE_ERROR As String = "Unable to write license file."
-    Private Const ERROR_INSERT_DISC As String = "Please insert the program disc into the computer."
-    Private Const ERROR_READ_LICENSE_ERROR As String = "Cannot read license file."
     Dim discService As DiscService
     Dim keyService As KeyService
     Dim macService As MACService
@@ -36,36 +31,36 @@ Public Class LicenseService
     End Function
     Public Function VerifyKey(key As String) As (result As Boolean, message As String)
         Try
-            If keyService.VerifyKey(key) = False Then Return (False, ERROR_INVALID_KEY)
+            If keyService.VerifyKey(key) = False Then Return (False, A3Strings.ERROR_INVALID_KEY)
         Catch ex As Exception
-            Return (False, ERROR_INVALID_KEY)
+            Return (False, A3Strings.ERROR_INVALID_KEY)
         End Try
 
         Try
-            If (WriteLicenseFile() = False) Then Return (False, ERROR_WRITE_LICENSE_ERROR)
+            If (WriteLicenseFile() = False) Then Return (False, A3Strings.ERROR_WRITE_LICENSE_ERROR)
         Catch ex As Exception
-            Return (False, ERROR_WRITE_LICENSE_ERROR)
+            Return (False, A3Strings.ERROR_WRITE_LICENSE_ERROR)
         End Try
 
         Return (True, String.Empty)
     End Function
     Public Function DiscCheck() As (result As Boolean, message As String)
-        If (discService.HasDiscInDrive(name) = False) Then Return (False, ERROR_INSERT_DISC)
+        If (discService.HasDiscInDrive(name) = False) Then Return (False, A3Strings.ERROR_INSERT_DISC)
 
         Return (True, String.Empty)
     End Function
 
     Public Function ContinuousLicenseCheck() As (result As Boolean, message As String)
-        If (discService.HasDiscInDrive(name) = False) Then Return (False, ERROR_INSERT_DISC)
-        If (VerifyLicenseFile() = False) Then Return (False, ERROR_READ_LICENSE_ERROR)
+        If (discService.HasDiscInDrive(name) = False) Then Return (False, A3Strings.ERROR_INSERT_DISC)
+        If (VerifyLicenseFile() = False) Then Return (False, A3Strings.ERROR_READ_LICENSE_ERROR)
 
         Return (True, String.Empty)
     End Function
     Public Function VerifyLicenseFile() As Boolean
-        If (File.Exists(LICENSE_FILE) = False) Then Return False
+        If (File.Exists(A3Resources.LicenseFile) = False) Then Return False
 
         Try
-            Dim encryptedBytes = File.ReadAllBytes(LICENSE_FILE)
+            Dim encryptedBytes = File.ReadAllBytes(A3Resources.LicenseFile)
             Dim decryptedBytes = encryptionService.DecryptFile(encryptedBytes)
             Dim license = JsonSerializer.Deserialize(Of LicenseModel)(Encoding.UTF8.GetString(decryptedBytes))
 
@@ -83,11 +78,11 @@ Public Class LicenseService
         If (VerifyLicenseFile() = True) Then Return True
 
         Try
-            File.Delete(LICENSE_FILE)
+            File.Delete(A3Resources.LicenseFile)
             Dim license = New LicenseModel() With {.NetworkAdapters = macService.GetAddresses(), .ProductName = name}
             Dim rawBytes = JsonSerializer.SerializeToUtf8Bytes(Of LicenseModel)(license)
             Dim encryptedBytes = encryptionService.EncryptFile(rawBytes)
-            File.WriteAllBytes(LICENSE_FILE, encryptedBytes)
+            File.WriteAllBytes(A3Resources.LicenseFile, encryptedBytes)
 
             Return True
         Catch ex As Exception

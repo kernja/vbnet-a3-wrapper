@@ -3,8 +3,8 @@
 
     Public Sub GetPhotoForDisplay(incrementValue As Integer)
         Dim photo = clientService.GetPhotoForDisplay(incrementValue)
-        picView.Image = photo.Item1
-        lblCaption.Text = photo.Item2
+        picView.Image = photo.Photo
+        lblCaption.Text = photo.Caption
     End Sub
 
     Private Sub FormViewer_Closed(sender As Object, e As EventArgs) Handles Me.Closed

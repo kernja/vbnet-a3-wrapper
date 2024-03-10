@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "A3Wrapper.Client", "A3Wrapper.Client\A3Wrapper.Client.vbproj", "{31948A31-0861-4847-9DDA-58B572BE838B}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "A3Wrapper.Client", "A3Wrapper.Client\A3Wrapper.Client.vbproj", "{31948A31-0861-4847-9DDA-58B572BE838B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{91E354C3-181D-45A5-99DD-5E2DE370CA87}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,11 +16,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{91E354
 		Assets\WRAPR.iso = Assets\WRAPR.iso
 	EndProjectSection
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "A3Wrapper.Models", "A3Wrapper.Models\A3Wrapper.Models.vbproj", "{6862AD66-1DF8-4E70-9298-C24658ACC72B}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "A3Wrapper.Models", "A3Wrapper.Models\A3Wrapper.Models.vbproj", "{6862AD66-1DF8-4E70-9298-C24658ACC72B}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "A3Wrapper.Services", "A3Wrapper.Services\A3Wrapper.Services.vbproj", "{8FA5F5B2-9D31-4031-BB9E-39AB62B0CB6D}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "A3Wrapper.Services", "A3Wrapper.Services\A3Wrapper.Services.vbproj", "{8FA5F5B2-9D31-4031-BB9E-39AB62B0CB6D}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "A3Wrapper.AssetPackager", "A3Wrapper.AssetPackager\A3Wrapper.AssetPackager.vbproj", "{929C12D0-0C8D-46F5-870A-3F59002BA0BC}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "A3Wrapper.AssetPackager", "A3Wrapper.AssetPackager\A3Wrapper.AssetPackager.vbproj", "{929C12D0-0C8D-46F5-870A-3F59002BA0BC}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "A3Wrapper.KeyGenerator", "A3Wrapper.KeyGenerator\A3Wrapper.KeyGenerator.vbproj", "{A0A0721C-C3B4-4A41-9F05-08540539B50B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "A3Wrapper.SharedResources", "A3Wrapper.SharedResources\A3Wrapper.SharedResources.vbproj", "{03CDB4B1-8458-40CF-A714-F831681AF8B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +48,14 @@ Global
 		{929C12D0-0C8D-46F5-870A-3F59002BA0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{929C12D0-0C8D-46F5-870A-3F59002BA0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{929C12D0-0C8D-46F5-870A-3F59002BA0BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0A0721C-C3B4-4A41-9F05-08540539B50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A0721C-C3B4-4A41-9F05-08540539B50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A0721C-C3B4-4A41-9F05-08540539B50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A0721C-C3B4-4A41-9F05-08540539B50B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03CDB4B1-8458-40CF-A714-F831681AF8B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03CDB4B1-8458-40CF-A714-F831681AF8B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03CDB4B1-8458-40CF-A714-F831681AF8B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03CDB4B1-8458-40CF-A714-F831681AF8B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

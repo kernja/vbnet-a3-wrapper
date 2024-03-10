@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>A3Wrapper.SharedResources</RootNamespace>
+	<TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+
+	<ItemGroup>
+		<Compile Update="A3Resources.Designer.vb">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>A3Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="A3Strings.Designer.vb">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>A3Strings.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="A3Resources.resx">
+			<CustomToolNamespace>My.Resources</CustomToolNamespace>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>A3Resources.Designer.vb</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="A3Strings.resx">
+		  <CustomToolNamespace>My.Resources</CustomToolNamespace>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>A3Strings.Designer.vb</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	
+</Project>
