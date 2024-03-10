@@ -33,7 +33,7 @@ Many configuration values can be configured within the `A3Wrapper.SharedResource
 * `A3Strings.resx`, which contains string values for dialog boxes and exceptions
 * `A3Resources.resx`, which contains configuration variables such as product name, encryption seeds, and key configuration values.
 
-Resource files *should not* be used for storing sensitive information like encryption keys or other secrets. It was used in this project to minimize the use of [magic numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)).
+Resource files *should not* be used for storing sensitive information like encryption keys or other secrets. Such files were used in this project to make it more accessible to the general public by minimizing the use of [magic numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)).
 
 The `A3Wrapper.AssetPackager` project can also be modified for viewing different photos.
 * Add the new photos to the `UnencryptedAssets.resx` file
